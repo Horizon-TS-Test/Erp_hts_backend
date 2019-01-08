@@ -1,0 +1,8 @@
+#omimitos datos de maquina virtual
+.vagrant
+
+# Omitimos la configuracion de IDE pyCharm
+.idea
+
+# Omitimos los Log del servidor virtual. 
+ubuntu-xenial-16.04-cloudimg-console.log
