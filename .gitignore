@@ -107,3 +107,6 @@ ENV/
 
 # Omitimos los Log del servidor virtual. 
 ubuntu-xenial-16.04-cloudimg-console.log
+
+#ignoramos carpeta de migraciones
+migrations/
