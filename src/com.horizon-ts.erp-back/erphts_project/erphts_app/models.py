@@ -236,17 +236,18 @@ class Activity(models.Model):
     def __str__(self):
         return '%s %s' % (self.description, self.id_activity)
 
-class CommercialLine(models.Model):
+class BusinessLine(models.Model):
     """
     MODELO CommercialLine REPRESENTA A LA TABLA erphts_app_commercialline DE LA BD erphts_DB
     Este modelo representa el tipo de producto que se comercializa
     """
-    id_com_line         = models.UUIDField(primary_key=True, unique= True, default = make_id_model, editable = False)
+    id_busi_line        = models.UUIDField(primary_key=True, unique= True, default = make_id_model, editable = False)
     description         = models.CharField(max_length=100)
     date_register       = models.DateTimeField(default= timezone.now)
     date_update         = models.DateTimeField(null = True, blank = True)
     user_register       = models.ForeignKey(UserProfile, on_delete = models.CASCADE, null = True)
-    user_update         = models.ForeignKey(UserProfile, on_delete = models.CASCADE, null = True, related_name = 'user_profile_comline')
+    user_update         = models.ForeignKey(UserProfile, on_delete = models.CASCADE, null = True, related_name = 'user_profile_busiline')
+    activity            = models.ForeignKey(Activity, on_delete = models.CASCADE, null = True, related_name = "acty_busiLine")
     active              = models.BooleanField(default=True)
 
     def __srt___(self):
@@ -291,8 +292,7 @@ class Enterprise(models.Model):
     user_register               = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
     user_update                 = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name="user_update_comp")
     central_ent                 = models.ForeignKey('self', on_delete=models.CASCADE, null=True, related_name="enterprise")
-    activity                    = models.ForeignKey(Activity, on_delete=models.CASCADE, null=True, related_name="enterprise_acty")
-    comm_line                   = models.ForeignKey(CommercialLine, on_delete=models.CASCADE, null=True, related_name="enterprise_commline")
+    busi_line                   = models.ForeignKey(BusinessLine, on_delete=models.CASCADE, null=True, related_name="enterprise_busiline")
     type_contrib                = models.ForeignKey(TypeContributor, on_delete=models.CASCADE, null = True, related_name = "enterprise_typeCon")
 
     def __str__(self):

@@ -7,7 +7,7 @@ router.register("login", views.LoginViewSet, base_name = "login")
 router.register("UserProfile", views.UserProfileViewSet)
 router.register("person", views.PersonViewSet)
 router.register("Activity", views.ActivityViewSet)
-router.register("CommercialLine", views.CommercialLineViewSet)
+router.register("BusinessLine", views.BusinessLineViewSet)
 router.register("TypeContributor", views.TypeContributorViewSet)
 router.register("Enterprise", views.EnterpriseViewSet)
 

@@ -56,12 +56,12 @@ class ActivityViewSet(viewsets.ModelViewSet):
     filter_backend      = (filters.SearchFilter,)
     search_fields       = ('description',)
 
-class CommercialLineViewSet(viewsets.ModelViewSet):
+class BusinessLineViewSet(viewsets.ModelViewSet):
     """
     """
 
-    serializer_class   = serializers.CommercialLineSerializer
-    queryset            = models.CommercialLine.objects.all()
+    serializer_class   = serializers.BusinessLineSerializer
+    queryset            = models.BusinessLine.objects.all()
     filter_backend      = (filters.SearchFilter,)
     search_fields       = ('description', )
 

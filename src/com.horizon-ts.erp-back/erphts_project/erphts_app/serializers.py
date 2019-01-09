@@ -92,12 +92,12 @@ class ActivitySerializer(serializers.ModelSerializer):
         model = models.Activity
         fields = ('id_activity', 'description')
 
-class CommercialLineSerializer(serializers.ModelSerializer):
+class BusinessLineSerializer(serializers.ModelSerializer):
     """
     """
     class Meta:
-        model = models.CommercialLine
-        fields = ('id_com_line', 'description')
+        model = models.BusinessLine
+        fields = ('id_busi_line', 'description')
 
 class TypeContributorSerializer(serializers.ModelSerializer):
     """
@@ -111,7 +111,7 @@ class EnterpriseSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model   = models.Enterprise
-        fields  = ('id_enterprise', 'email', 'ruc', 'name', 'legal_agent', 'telephone', 'telephone_fax', 'movil_phone', 'address', 'neighborhood', 'postal_code', 'web_site', 'central_ent', 'activity', 'comm_line', 'type_contrib', 'date_register')
+        fields  = ('id_enterprise', 'email', 'ruc', 'name', 'legal_agent', 'telephone', 'telephone_fax', 'movil_phone', 'address', 'neighborhood', 'postal_code', 'web_site', 'central_ent', 'busi_line', 'type_contrib', 'date_register')
         read_only_fields = ('date_register', )
 
 
