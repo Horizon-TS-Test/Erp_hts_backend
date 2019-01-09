@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'erphts_app'
+    'erphts_app',
+    'channels',
+    'channels_api',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -130,4 +133,12 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'erphts_app.UserProfile'
 
+#--------------------------------------------------------------------------------
+#                   PAGINATION
+#--------------------------------------------------------------------------------
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 5,
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+}

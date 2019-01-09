@@ -1,6 +1,6 @@
 # HORIZON TECHNOLOGY SOLUTION.
 
-## ERP-HTS
+## ACCONT-SYS-HTS
 
 Sistemas de administracion de negocios.
 
