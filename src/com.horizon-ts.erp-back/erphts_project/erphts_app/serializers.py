@@ -97,7 +97,7 @@ class BusinessLineSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = models.BusinessLine
-        fields = ('id_busi_line', 'description')
+        fields = ('id_busi_line', 'description', 'activity')
 
 class TypeContributorSerializer(serializers.ModelSerializer):
     """
