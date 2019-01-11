@@ -245,10 +245,10 @@ class BusinessLine(models.Model):
     description         = models.CharField(max_length=100)
     date_register       = models.DateTimeField(default= timezone.now)
     date_update         = models.DateTimeField(null = True, blank = True)
+    active              = models.BooleanField(default=True)
     user_register       = models.ForeignKey(UserProfile, on_delete = models.CASCADE, null = True)
     user_update         = models.ForeignKey(UserProfile, on_delete = models.CASCADE, null = True, related_name = 'user_profile_busiline')
     activity            = models.ForeignKey(Activity, on_delete = models.CASCADE, null = True, related_name = "acty_busiLine")
-    active              = models.BooleanField(default=True)
 
     def __srt___(self):
         return '%s %s' % (self.description, self.id_com_line)
@@ -297,4 +297,86 @@ class Enterprise(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class CategoryPro(models.Model):
+    """
+    MODELO CategoryPro REPRESENTA A LA TABLA erphts_app_categorypro DE LA BD erphts_DB
+    """
+    id_cat_pro          = models.UUIDField(primary_key = True, unique = True, default = make_id_model, editable = False)
+    description         = models.CharField(max_length = 100)
+    date_register       = models.DateTimeField(default = timezone.now)
+    date_update         = models.DateTimeField(null=True, blank=True)
+    active              = models.BooleanField(default = True)
+    user_register       = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
+    user_update         = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name="user_update_categ")
+    busi_line           = models.ManyToManyField(BusinessLine)
+
+class ProductInput(models.Model):
+    """
+    MODELO ProductInput REPRESENTA A LA TABLA erphts_app_productinput DE LA BD erphts_DB
+    """
+    id_prodInp          = models.UUIDField(primary_key = True, unique = True, default = make_id_model, editable = False)
+    name                = models.CharField(max_length = 100)
+    detail              = models.CharField(max_length = 100, null = True)
+    date_register       = models.DateTimeField(default = timezone.now)
+    date_update         = models.DateTimeField(null=True, blank=True)
+    active              = models.BooleanField(default = True)
+    user_register       = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
+    user_update         = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name="user_update_produ")
+    category            = models.ForeignKey(CategoryPro, on_delete = models.CASCADE, null = True)
+    enter_produ         = models.ManyToManyField(Enterprise, through = 'EnterProdu', through_fields =  ('product', 'enterprise'))
+    
+    def __str__(self):
+        return self.name
+
+
+class Mark(models.Model):
+    """
+    MODELO Mark REPRESENTA A LA TABLA erphts_app_mark DE LA BD erphts_DB
+    """
+    id_mark         = models.UUIDField(unique = True, primary_key = True, default = make_id_model, editable = False)
+    description     = models.CharField(max_length = 100)
+    date_register   = models.DateTimeField(default = timezone.now)
+    date_update     = models.DateTimeField(null=True, blank=True)
+    active          = models.BooleanField(default= True)
+    user_register   = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
+    user_update     = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name="user_update_mark")
+    
+    def __str__(self):
+        return self.description
+
+class EnterProdu(models.Model):
+    """
+    MODELO EnterProdu REPRESENTA A LA TABLA erphts_app_enterprodu DE LA BD erphts_DB
+    """
+    active          = models.BooleanField(default = True)
+    product         = models.ForeignKey(ProductInput, on_delete = models.CASCADE, null =  True, related_name = "enterprodu_produ")
+    enterprise      = models.ForeignKey(Enterprise, on_delete = models.CASCADE, null = True, related_name = "enterprodu_enter")
+    date_register   = models.DateTimeField(default = timezone.now)
+    date_update     = models.DateTimeField(null=True, blank=True)
+    user_register   = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
+    user_update     = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name="user_update_entpro")
+    enterprodumar   = models.ManyToManyField(Mark, through = 'EnterProduMark', through_fields = ('enter_produ', 'mark'))
+
+
+
+class EnterProduMark(models.Model):
+    """
+    MODELO EnterProduMark REPRESENTA A LA TABLA erphts_app_enterprodumark DE LA BD erphts_DB
+    """
+    enter_produ     = models.ForeignKey(EnterProdu, on_delete = models.CASCADE)
+    mark            = models.ForeignKey(Mark, on_delete = models.CASCADE)
+    active          = models.BooleanField(default = True)
+    date_register   = models.DateTimeField(default = timezone.now)
+    date_update     = models.DateTimeField(null=True, blank=True)
+    user_register   = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
+    user_update     = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name="user_update_enterprodumar")
+
+
+
+
+
+    
+ 
 
