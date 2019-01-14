@@ -114,6 +114,11 @@ class EnterpriseSerializer(serializers.ModelSerializer):
         fields  = ('id_enterprise', 'email', 'ruc', 'name', 'legal_agent', 'telephone', 'telephone_fax', 'movil_phone', 'address', 'neighborhood', 'postal_code', 'web_site', 'central_ent', 'busi_line', 'type_contrib', 'date_register')
         read_only_fields = ('date_register', )
 
-
-
+class MarkSerializer(serializers.ModelSerializer):
+    """
+    """
+    class Meta:
+        model   = models.Mark
+        fields  = ('id_mark', 'description',)
+        read_only_fields  = ('date_update', 'date_register')
 

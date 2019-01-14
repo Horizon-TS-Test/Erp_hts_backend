@@ -296,7 +296,7 @@ class Enterprise(models.Model):
     type_contrib                = models.ForeignKey(TypeContributor, on_delete=models.CASCADE, null = True, related_name = "enterprise_typeCon")
 
     def __str__(self):
-        return self.name
+        return '%s %s'  % (self.name, self.id_enterprise)
 
 
 class CategoryPro(models.Model):
@@ -311,6 +311,9 @@ class CategoryPro(models.Model):
     user_register       = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
     user_update         = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name="user_update_categ")
     busi_line           = models.ManyToManyField(BusinessLine)
+
+    def __srt___(self):
+        return '%s %s' % (self.description, self.description)
 
 class ProductInput(models.Model):
     """
@@ -328,7 +331,7 @@ class ProductInput(models.Model):
     enter_produ         = models.ManyToManyField(Enterprise, through = 'EnterProdu', through_fields =  ('product', 'enterprise'))
     
     def __str__(self):
-        return self.name
+        return '%s %s' % (self.name, self.id_prodInp)
 
 
 class Mark(models.Model):
@@ -344,7 +347,7 @@ class Mark(models.Model):
     user_update     = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name="user_update_mark")
     
     def __str__(self):
-        return self.description
+        return '%s %s'  % (self.description, self.id_mark)
 
 class EnterProdu(models.Model):
     """

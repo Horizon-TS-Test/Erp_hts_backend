@@ -80,3 +80,11 @@ class EnterpriseViewSet(viewsets.ModelViewSet):
     queryset            = models.Enterprise.objects.all()
     filter_backend      = (filters.SearchFilter)
     search_fields       = ('ruc', 'name', 'email', )
+
+class MarkViewSet(viewsets.ModelViewSet):
+    """
+    """
+    serializer_class      = serializers.MarkSerializer
+    queryset              = models.Mark.objects.all()
+    filter_backend        = (filters.SearchFilter)
+    search_fields         = ("description", )
