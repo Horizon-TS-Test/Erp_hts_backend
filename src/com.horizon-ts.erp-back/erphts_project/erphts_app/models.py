@@ -362,6 +362,8 @@ class EnterProdu(models.Model):
     user_update     = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name="user_update_entpro")
     enterprodumar   = models.ManyToManyField(Mark, through = 'EnterProduMark', through_fields = ('enter_produ', 'mark'))
 
+    class Meta:
+        unique_together = (('product', 'enterprise'))
 
 
 class EnterProduMark(models.Model):
@@ -376,10 +378,6 @@ class EnterProduMark(models.Model):
     user_register   = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
     user_update     = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name="user_update_enterprodumar")
 
-
-
-
-
-    
+    class Meta:
+        unique_together = (('enter_produ', 'mark'), )
  
-
