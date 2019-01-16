@@ -6,6 +6,74 @@ import json
 #****************************************************************************#
 #                  LÓGICA Y SERAILIZACION DE DATOS                           #
 #****************************************************************************#
+class ProvinceSerializer(serializers.ModelSerializer):
+    """
+    CLASE SERIALIZERIALIZADORA PARA MODELO PROVINCE
+    """
+    cantons = serializers.SerializerMethodField()
+
+    class Meta:
+        model  = models.Province
+        fields = ('id_province', 'description_province', 'cantons')
+        read_only_fields = ('data_register', )
+
+
+    def get_cantons(self, obj):
+        """
+        Obtenemos todos las parroquias del canton
+        :param obj:
+        :return:
+        """
+        cantons_data = models.Canton.objects.filter(province = obj.id_province)
+        data_province   = []
+
+        for item_canton in cantons_data:
+            item_json = '{}'
+            item_json = json.loads(item_json)
+            item_json["description_canton"]= item_canton.description_canton
+            item_json["id_canton"]= item_canton.id_canton
+            data_province.append(item_json)
+
+        return data_province
+
+
+class CantonSerializer(serializers.ModelSerializer):
+    """
+    CLASE SERIALIZERIALIZADORA PARA MODELO CANTON
+    """
+    parish = serializers.SerializerMethodField()
+    class Meta:
+        model  = models.Canton
+        fields = ('id_canton', 'description_canton', 'province', 'parish')
+        read_only_fields = ('data_register', )
+
+    def get_parish(self, obj):
+        """
+        Obtenemos todos los datos de las parroquias
+        :param obj:
+        :return:
+        """
+        parish_data = models.Parish.objects.filter(canton = obj.id_canton)
+        data_parish = []
+
+        for item_parish in parish_data:
+            item_json = '{}'
+            item_json = json.loads(item_json)
+            item_json["description"] = item_parish.description_parish
+            item_json["id_parroquia"] = item_parish.id_parish
+            data_parish.append(item_json)
+
+        return data_parish
+
+
+class ParishSerializer(serializers.ModelSerializer):
+    """
+    CLASE SERIALIZERIALIZADORA PARA MODELO CANTON
+    """
+    class Meta:
+        model  = models.Parish
+        fields = ('id_parish', 'description_parish', 'canton')
+        read_only_fields = ('data_register', )
 
 class PersonSerializer(serializers.ModelSerializer):
     """
@@ -111,7 +179,7 @@ class EnterpriseSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model   = models.Enterprise
-        fields  = ('id_enterprise', 'email', 'ruc', 'name', 'legal_agent', 'telephone', 'telephone_fax', 'movil_phone', 'address', 'neighborhood', 'postal_code', 'web_site', 'central_ent', 'busi_line', 'type_contrib', 'date_register')
+        fields  = ('id_enterprise', 'email', 'ruc', 'name', 'legal_agent', 'telephone', 'telephone_fax', 'movil_phone', 'address', 'neighborhood', 'postal_code', 'web_site', 'central_ent', 'parish' ,'busi_line', 'type_contrib', 'date_register')
         read_only_fields = ('date_register', )
 
 class MarkSerializer(serializers.ModelSerializer):

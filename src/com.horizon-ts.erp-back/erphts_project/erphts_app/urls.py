@@ -11,6 +11,10 @@ router.register("BusinessLine", views.BusinessLineViewSet)
 router.register("TypeContributor", views.TypeContributorViewSet)
 router.register("Enterprise", views.EnterpriseViewSet)
 router.register("Mark", views.MarkViewSet)
+router.register("Province", views.ProvinceViewSet)
+router.register("Canton", views.CantonViewSet)
+router.register("Parish", views.ParishViewSet)
+
 
 urlpatterns = [
     url(r'', include(router.urls)),

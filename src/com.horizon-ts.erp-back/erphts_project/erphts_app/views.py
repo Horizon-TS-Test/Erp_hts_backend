@@ -3,10 +3,73 @@ from rest_framework import viewsets
 from rest_framework import filters
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.authtoken.views import ObtainAuthToken 
+from .constants.erp_init_constants import ErpHtsConstants
 from . import serializers
 from . import models
 
 # Create your views here.
+
+class ProvinceViewSet(viewsets.ModelViewSet):
+    """
+       HANDLES CREATING, READING AND UPDATING PROVINCE.
+       """
+    serializer_class = serializers.ProvinceSerializer
+    queryset = models.Province.objects.all().order_by("description_province")
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('description_province')
+    pagination_class = None
+
+
+class CantonViewSet(viewsets.ModelViewSet):
+    """
+    HANDLES CREATING, READING AND UPDATING CANTON.
+    """
+    serializer_class = serializers.CantonSerializer
+    queryset = models.Canton.objects.all().order_by("description_canton")
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('description_canton')
+    pagination_class = None
+
+    def get_queryset(self):
+        """
+        Filtros para consultas de cantones de una parroquia.
+        :return: List
+        """
+        req = self.request
+        qrOp = req.query_params.get(ErpHtsConstants.FILTER_PROVINCE)
+
+        print ("province", qrOp)
+        if qrOp is None:
+            return models.Canton.objects.all()
+        else:
+            return models.Canton.objects.filter(province = qrOp)
+
+
+class ParishViewSet(viewsets.ModelViewSet):
+    """
+    HANDLES CREATING, READING AND UPDATING TYPEACTION.
+    """
+    serializer_class = serializers.ParishSerializer
+    queryset = models.Parish.objects.all().order_by("description_parish")
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('description_parish')
+    pagination_class = None
+
+    def get_queryset(self):
+        """
+        Filtros para consultas de parroquias de una provincia.
+        :return: List
+        """
+        req = self.request
+        qrOp = req.query_params.get(ErpHtsConstants.FILTER_CANTON)
+
+        print ("canton", qrOp)
+        if qrOp is None:
+            return models.Parish.objects.all()
+        else:
+            return models.Parish.objects.filter(canton = qrOp)
+
+
 class PersonViewSet(viewsets.ModelViewSet):
     """
     """

@@ -292,6 +292,7 @@ class Enterprise(models.Model):
     user_register               = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
     user_update                 = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name="user_update_comp")
     central_ent                 = models.ForeignKey('self', on_delete=models.CASCADE, null=True, related_name="enterprise")
+    parish                      = models.ForeignKey(Parish, on_delete=models.CASCADE, null = True, related_name = "enterprise_parish")
     busi_line                   = models.ForeignKey(BusinessLine, on_delete=models.CASCADE, null=True, related_name="enterprise_busiline")
     type_contrib                = models.ForeignKey(TypeContributor, on_delete=models.CASCADE, null = True, related_name = "enterprise_typeCon")
 
